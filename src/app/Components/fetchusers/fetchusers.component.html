@@ -1,0 +1,56 @@
+ <div class="row">
+    <form (ngSubmit)="searchRepositories(username)">
+      <div class="col-md-12">
+          <div class=" col-md-12">
+            <h2>Search Repositories</h2>
+            Username:<input type="text" name="username" [(ngModel)]="username" id="username"><input type="submit" value="Search">
+          </div>
+      </div>
+    </form>
+    <div class="col-md-12" *ngIf="userlist">
+        <h3>Result</h3>
+          <table>
+            <tr>
+              <th>Username</th>
+              <th>User Repos</th>
+            </tr>
+            <tr *ngFor="let r of userList">
+              <td (click)="searchRepositories(r.login)"> {{ r.login }}</td>
+            <td (click)="clickSearch(r.repos_url)"><a> {{ r.repos_url }}</a></td>
+            </tr>
+          </table>
+    </div>
+ </div>
+
+
+  <div class="col-md-12" *ngIf ="fetchrepos">
+    <h3>Result</h3>
+      <table>
+        <tr>
+          <th>Username</th>
+          <th>Repository url</th>
+        </tr>
+        <tr *ngFor="let r of res1">
+          <td> {{ r.full_name }}</td>
+          <td (click)="searchRepositories(r.html_url )">{{ r.html_url }}</td>
+        </tr>
+      </table>
+      <div style="margin-top: 10px;">
+        <button class="btn-primary" type="submit" (click)="userlist=true;
+           fetchrepos=false;">Back</button>
+      </div>
+  </div>
+      
+
+  <style type="text/css">
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table,th,td{
+            border:1px solid black;
+        }
+        .err{
+        color:red;
+        }
+  </style>
